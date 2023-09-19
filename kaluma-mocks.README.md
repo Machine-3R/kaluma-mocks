@@ -4,8 +4,25 @@ But when writing code I like to testrun it on my Windows PC, which fails, becaus
 
 I use Jest for testing and creating mocks for simulating the Kaluma UF2.
 
+
+## Create a new project (or use a present one)
+```git
+$ git remote add kaluma-mocks git@github.com:Machine-3R/kaluma-mocks.git
+$ git pull kaluma-mocks master
+```
+If the last line failed because of : "fatal: refusing to merge unrelated histories" =>
+```git
+git pull kaluma-mocks master --allow-unrelated-histories
+```
+
+## Now you have the code, time to make it work
+
 Go to the [Jest Home](https://jestjs.io/docs/getting-started) for installation instructions.
-I prefer to install Jest globally
+
+I prefer to install Jest globally.
+```javascript
+  npm install jest --global
+```
 
 Create a [Jest config file](https://jestjs.io/docs/configuration) if not present.<br/>
 Edit Jest config file:
@@ -16,6 +33,43 @@ Edit Jest config file:
   ],
   ...
 ```
+
+Run the tests:
+```javascript
+  jest ./kaluma-mocks.test.js
+```
+
+Example:
+```javascript
+// example.js
+console.log(`
+name:    ${board.name}
+LED pin: ${board.LED}
+`);
+
+const led = board.LED;
+pinMode(led, OUTPUT);
+setInterval(() => {
+    console.log('LED status:', board.led(board.LED).read());
+    digitalToggle(led);
+}, 1000);
+```
+```javascript
+// example.test.js
+'use strict';
+
+jest.useFakeTimers();
+
+it("should not fail", () => {
+    require('./example.js');
+});
+```
+```javascript
+  jest ./example.test.js
+```
+
+Have Fun!
+
 
 
 
