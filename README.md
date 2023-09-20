@@ -5,8 +5,8 @@ But when writing code I like to testrun it on my Windows PC, which fails, becaus
 I use Jest for testing and creating mocks for simulating the Kaluma UF2.
 
 
-## Create a new project
-
+## Creating a new project
+[Fork a repo](https://docs.github.com/en/get-started/quickstart/fork-a-repo#forking-a-repository) on Github
 
 ### or use a present one
 then:
