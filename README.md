@@ -5,7 +5,10 @@ But when writing code I like to testrun it on my Windows PC, which fails, becaus
 I use Jest for testing and creating mocks for simulating the Kaluma UF2.
 
 
-## Create a new project (or use a present one)
+## Create a new project
+
+
+### or use a present one
 then:
 ```git
 $ git remote add kaluma-mocks git@github.com:Machine-3R/kaluma-mocks.git
