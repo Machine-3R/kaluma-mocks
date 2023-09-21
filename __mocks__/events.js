@@ -1,30 +1,56 @@
 
-const EventEmitter = function() {
-
-    this.addListener = function(eventName, listener) {
+class EventEmitter {
+    constructor() {
+        this.events = {};
     }
 
-    this.emit = function(eventName, ...args) {
+    addListener(eventName, listener) {
+        if (!this.events[eventName]) {
+            this.events[eventName] = [];
+        }
+        this.events[eventName.push(listener)];
     }
 
-    this.on = function(eventName, listener) {
+    emit(eventName, ...args) {
+        const event = this.events[eventName];
+        if (event) {
+            event.forEach(listener => {
+                listener.call(null, ...args);
+            });
+        }
     }
 
-    this.once = function(eventName, listener) {
+    on = this.addListener;
+
+    once(eventName, listener) {
+        this.on(eventName, listener);
+        this.on(eventName, () => {
+            this.removeListener(eventName, listener);
+        });
     }
 
-    this.removeListener = function(eventName, listener) {
+    removeListener(eventName, listener) {
+        this.events[eventName] = this.events[eventName]
+            .filter(eventListener => listener !== eventListener);
+
     }
 
-    this.removeAllListeners = function(eventName = null) {
+    removeAllListeners(eventName = null) {
+        if (eventName) {
+            this.events[eventName].length = 0;
+        } else {
+            this.events.length = 0;
+        }
     }
 
-    this.off = this.removeListener;
+    off = this.removeListener;
 
-    this.listeners = function(eventName) {
+    listeners(eventName) {
+        return this.events[eventName];
     }
 
-    this.listenerCount = function(eventName) {
+    listenerCount(eventName) {
+        return this.events[eventName].length;
     }
 }
 
