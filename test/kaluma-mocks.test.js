@@ -115,7 +115,30 @@ it('requires spi', function () {
 });
 
 it('requires storage', function () {
-    expect(()=>require('storage')).not.toThrow();
+    expect(() => require('storage')).not.toThrow();
+
+    const { Storage } = require('storage');
+    let storage = Storage.getInstance();
+    let originalLength = storage.length;
+    expect(storage).toBeInstanceOf(Storage);
+
+    let testItem = {
+        key: 'key',
+        value: 'value'
+    };
+    storage.setItem(testItem.key, testItem.value);
+    expect(storage.length).toEqual(originalLength + 1);
+
+    let item = storage.getItem(testItem.key);
+    expect(item.value).toBe(testItem.value);
+
+    storage.removeItem(testItem.key);
+    item = storage.getItem(testItem.value);
+    expect(item).toBeUndefined();
+    expect(storage.length).toEqual(originalLength);
+
+    storage.clear();
+    expect(storage.length).toEqual(0);
 });
 
 it('requires stream', function () {
