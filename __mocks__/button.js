@@ -1,5 +1,6 @@
 'use strict';
 
+const { EventEmitter } = require("./events");
 const { INPUT_PULLUP, FALLING } = require("./global");
 
 let optionDefaults = {
@@ -7,7 +8,8 @@ let optionDefaults = {
     event: FALLING,
     debounce: 50
 };
-class Button {
+
+class Button extends EventEmitter {
     #pin = null;
     #value = LOW;
     #options = {
@@ -24,9 +26,6 @@ class Button {
     }
 
     close() {
-    }
-
-    on(event, cb) {
     }
 }
 

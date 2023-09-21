@@ -1,11 +1,14 @@
 'use strict';
 
-class ATCommand {
-    buffer = '';
+const { EventEmitter } = require("./events");
 
-    constructor(uart, options = {
-        debug: false
-    }) {
+let optionsDefault = {
+    debug: false
+};
+
+class ATCommand extends EventEmitter {
+    buffer = '';
+    constructor(uart, options = optionsDefault) {
     }
 
     send(
